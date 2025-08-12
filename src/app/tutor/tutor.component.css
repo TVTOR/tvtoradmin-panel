@@ -1,0 +1,11 @@
+
+table.dataTable tbody td {
+padding: 15px 10px;
+}
+#mag-profile{
+    margin: auto !important;
+  }
+  .profile-title{
+    color: #36aadf;
+    text-align: center;
+  }

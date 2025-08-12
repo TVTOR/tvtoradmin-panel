@@ -1,0 +1,27 @@
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center myform">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <img src="/assets/image/images.png" alt="">
+                    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+                        <h3 class="text-center text-info">Forgot Password</h3>
+                        <div>
+                            <label for="email" class="text-info">Email</label><br>
+                            <input type="email" formControlName="email" id="email" class="form-control"
+                                [ngClass]="{'is-invalid': submitted && emailForm.controls.email.errors }">
+                            <div *ngIf="emailForm.controls.email.invalid && (emailForm.controls.email.dirty || emailForm.controls.email.touched)"
+                                class="invalid-feedback" style="display: block;">
+                                <div *ngIf="emailForm.controls.email.errors.required">Email field is required!</div>
+                            </div>
+                        </div>
+
+                        <div class="submit">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

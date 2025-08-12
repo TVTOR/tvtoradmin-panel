@@ -1,0 +1,73 @@
+<div class="right_col" role="main" style="min-height: 755px;">
+  <div class="page-title">
+    <div class="title_left">
+      <h3><small>Managers List</small></h3>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold">Tutor Managers List</h6>
+        </div>
+        <div class="card-body">
+          <table datatable [dtOptions]="dtOptions" class="table table-bordered row-border hover no-footer" width="100%"
+            cellspacing="0" id="user-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Matches</th>
+                <th>Profile</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="rows?.length != 0">
+              <tr *ngFor="let user of rows">
+                <td>{{user.name}}</td>
+                <td>0</td>
+                <td><span class="flex_wrp flex_strt drec_colomn">
+                    <button class="btn btn-success" (click)="getSingletutorId(user._id)"> View</button>
+                  </span>
+                  <button class="btn btn-danger" style="margin-left: 5px; height:40px; width:60px;"
+                    (click)="deleteModelDiallog(user._id)"> &#10006;</button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="rows?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data available in table!</td>
+              </tr>
+            <tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Delete Tutor Manager
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div>
+              <div style="float: left;">
+                <h2>Are you sure, you want to delete?</h2>
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-danger btn-lg smingl_button" value="Delete"
+                  (click)="deleteTutorManager(deleteId)">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

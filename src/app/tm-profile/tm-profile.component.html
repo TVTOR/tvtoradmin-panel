@@ -1,0 +1,78 @@
+<div class="right_col" role="main" style="min-height: 755px;">
+  <div class="page-title">
+    <div class="title_left">
+      <h3><small>Tutor Manager Profile</small></h3>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6" id='mag-profile'>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold profile-title">Manager Profile</h6>
+        </div>
+        <div class="card-body">
+          <table id="tmtable" class="display table" style="width:100%">
+
+            <tbody>
+              <tr>
+                <td><b>First Name:</b></td>
+                <td id="tabledeatils">{{( managerData && managerData.name)? managerData.name: ""}}</td>
+                <td><b>Last Name:</b></td>
+                <td id="tabledeatils">{{( managerData && managerData.surname)? managerData.surname: ""}}</td>
+              </tr>
+              <tr>
+                <td><b>Email:</b></td>
+                <td id="tabledeatils">{{( managerData && managerData.email)? managerData.email: ""}}</td>
+                <td><b>Location:</b></td>
+                <td id="tabledeatils">{{( managerData && managerData.locationData)? managerData.locationData: ""}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold">Tutor's List</h6>
+        </div>
+        <div class="card-body">
+          <table datatable [dtOptions]="dtOptions" class="table table-bordered row-border hover" width="100%"
+            cellspacing="0" id="user-table">
+            <thead>
+              <tr>
+                <th style="display: none;"></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Profile</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="rows?.length != 0">
+              <tr *ngFor="let user of rows">
+                <td style="display: none;"></td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td><a [routerLink]="'/tutor/'+ user._id"> <span class="flex_wrp flex_strt drec_colomn">
+                      <button class="btn btn-success"> View</button>
+                    </span>
+                  </a>
+
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="rows?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data available in table!</td>
+              </tr>
+            <tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

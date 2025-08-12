@@ -1,0 +1,6 @@
+.dataTables_processing{
+    display: none !important;
+}
+#user-table_processing{
+    display: none !important;
+}

@@ -1,0 +1,17 @@
+.dataTables_processing{
+  display: none !important;
+}
+#user-table_processing{
+  display: none !important;
+}
+#tmtable td{
+  border: 0px;
+  padding: 10px;
+}
+#mag-profile{
+  margin: auto !important;
+}
+.profile-title{
+  color: #36aadf;
+  text-align: center;
+}

@@ -1,0 +1,158 @@
+<div class="right_col" role="main" style="min-height: 755px;">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Subjects List</h3>
+      <button type="button" class="btn btn-info btn-lg smingl_button mb-4" (click)="openModalDialog()">Add</button>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold">Subject List</h6>
+        </div>
+        <div class="card-body">
+          <table datatable [dtOptions]="dtOptions" class="table table-bordered row-border hover" width="100%"
+            cellspacing="0" id="user-table">
+            <thead>
+              <tr>
+                <th style="display: none;"></th>
+                <th>Subject</th>
+                <th>Color</th>
+                <th style="width: 50%;"></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="rows?.length != 0">
+              <tr *ngFor="let subjects of rows">
+                <td style="display: none;"></td>
+                <td>{{subjects.subject}}</td>
+                <td>{{subjects.colorcode}}</td>
+                <td><span class="flex_wrp flex_strt drec_colomn">
+                    <button class="btn btn-success glyphicon glyphicon-edit"
+                      style="margin-left: 5px; height:50px; width:60px;" (click)="openEditModalDialog(subjects._id);">
+                      Edit</button>
+                    <button class="btn btn-danger" style="margin-left: 5px; height:50px; width:60px;"
+                      (click)="deleteModelDiallog(subjects._id)"> &#10006;</button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="rows?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data available in table!</td>
+              </tr>
+            <tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Create Subject
+          <button name="colorcode" type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="subjectForm" (ngSubmit)="createSubject(subjectForm.value)">
+            <div>
+              <div>
+                <input type="text" (colorPickerChange)="color=$event"
+                  style="font-size:20px; margin-left: 0px; width: 150px; height: 35px; margin-bottom: 20px;"
+                  [value]="color" [colorPicker]="subjectForm.get('color').value" [style.background]="color"
+                  [(colorPicker)]="color" (colorPickerChange)="subjectForm.get('color').setValue($event)"
+                  name="colorcode" formControlName="color" />
+                <font size="5px"> Choose color</font>
+              </div>
+              <div style="float: left;">
+                <input type="text" class="textbox textbox1 textbox2" id="mytext" name="subject"
+                  placeholder="Subject Name" formControlName="subjectName">
+                <div
+                  *ngIf="subjectForm.controls.subjectName.invalid && (subjectForm.controls.subjectName.dirty || subjectForm.controls.subjectName.touched)"
+                  class="invalid-feedback" style="display: block;">
+                  <div *ngIf="subjectForm.controls.subjectName.errors.required">
+                    Subject is required.
+                  </div>
+                </div>
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-info btn-lg smingl_button" value="Save">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Edit Subject
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editSubjectForm" (ngSubmit)="editSubjectdata(editSubjectForm.value, editId)">
+            <div>
+              <div>
+                <input type="text"
+                  style="font-size:20px; margin-left: 0px; width: 150px; height: 35px; margin-bottom: 20px;"
+                  [value]="color" [colorPicker]="subjectForm.get('color').value" [style.background]="color"
+                  [(colorPicker)]="color" (colorPickerChange)="subjectForm.get('color').setValue($event)"
+                  name="colorcode" [ngModel]="colorvalue" formControlName="color" />
+                <font size="5px"> Edit color</font>
+              </div>
+              <div style="float: left;">
+                <input type="text" class="textbox textbox1 textbox2" id="mytext" name="subject"
+                  placeholder="Subject Name" [ngModel]="subjectvalue" formControlName="subjectName">
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-info btn-lg smingl_button" value="Save">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 3">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Delete Subject
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div>
+              <div style="float: left;">
+                <h2>Are you sure, you want to delete this subject?</h2>
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-danger btn-lg smingl_button" value="Delete"
+                  (click)="deleteSubject(deleteId)">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

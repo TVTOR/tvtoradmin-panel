@@ -1,0 +1,143 @@
+<div class="right_col" role="main" style="min-height: 755px;">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Locations List</h3>
+      <button type="button" class="btn btn-info btn-lg smingl_button mb-4" (click)="openModalDialog()">Add</button>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold">Location List</h6>
+        </div>
+        <div class="card-body">
+          <table datatable [dtOptions]="dtOptions" class="table table-bordered row-border hover" width="100%"
+            cellspacing="0" id="user-table">
+            <thead>
+              <tr>
+                <th style="display: none;"></th>
+                <th>Location</th>
+                <th style="width: 50%;"></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="rows?.length != 0">
+              <tr *ngFor="let locations of rows">
+                <td style="display: none;"></td>
+                <td>{{locations.location}}</td>
+                <td><span class="flex_wrp flex_strt drec_colomn">
+                    <button class="btn btn-success glyphicon glyphicon-edit"
+                      style="margin-left: 5px; height:50px; width:60px;" (click)="openEditModalDialog(locations._id)">
+                      Edit</button>
+                    <button class="btn btn-danger" style="margin-left: 5px; height:50px; width:60px;"
+                      (click)="deleteModelDiallog(locations._id)"> &#10006;</button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="rows?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data available in table!</td>
+              </tr>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Create Location
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="locationForm" (ngSubmit)="createLocation(locationForm.value)">
+            <div>
+              <div style="float: left;">
+                <input type="text" class="textbox textbox1 textbox2" id="mytext" name="location"
+                  placeholder="Location Name" formControlName="locationName">
+                <div
+                  *ngIf="locationForm.controls.locationName.invalid && (locationForm.controls.locationName.dirty || locationForm.controls.locationName.touched)"
+                  class="invalid-feedback" style="display: block;">
+                  <div *ngIf="locationForm.controls.locationName.errors.required">
+                    Location is required.
+                  </div>
+                </div>
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-info btn-lg smingl_button" value="Save">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Edit Location
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editLocationForm" (ngSubmit)="editLocationdata(editLocationForm.value, editId)">
+            <div>
+              <div style="float: left;">
+                <input type="text" class="textbox textbox1 textbox2" id="mytext" name="location"
+                  placeholder="Location Name" [ngModel]="locationvalue" formControlName="locationName">
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-info btn-lg smingl_button" value="Save">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}" *ngIf="showDialog == 3">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header fontvalue">Delete Location
+          <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div>
+              <div style="float: left;">
+                <h2>Are you sure, you want to delete this location?</h2>
+              </div>
+              <div style="float: right;">
+                <input type="submit" class="btn btn-danger btn-lg smingl_button" value="Delete"
+                  (click)="deleteLocations(deleteId)">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default smingl_button" (click)="closeModalDialog()"
+            style="border-color: #117a8b;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

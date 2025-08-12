@@ -1,0 +1,17 @@
+.img-profile {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .bg-info {
+    background-color: white !important;
+}
+
+.navbar {
+  height : 48px;
+  /* margin-left:  */
+}
+
+.none{
+  display: none;
+}
