@@ -95,9 +95,9 @@ export class AuthenticationService {
   }
 
   userLogout(id: any): Observable<any> {
-    const params = new HttpParams()
-      .set('id', id)
-    return this.http.delete(this.baseUrl + '/user/logout/' + id, { params });
+    var sessionData = this.storageService.loadSessionData();
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": sessionData.token, "x-access-token": sessionData.token });
+    return this.http.delete(this.baseUrl + '/user/logout/' + id, { headers: headers });
   }
 
   addSubject(data: any): Observable<any> {
