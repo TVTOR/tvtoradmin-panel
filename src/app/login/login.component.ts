@@ -61,10 +61,10 @@ export class LoginComponent implements OnInit {
             this.toastr.success(res.message, 'Login successfully!', { progressBar: true });
             this.router.navigateByUrl('/dashboard');
           } else {
-            this.toastr.error(res.message, 'Please enter correct email or password!', { progressBar: true });
+            this.toastr.error(res.body.message || 'Login failed', 'Login Error', { progressBar: true });
           }
         }, err => {
-          this.toastr.error(err.message, 'Failure!', { progressBar: true });
+          this.toastr.error(err.error?.message || err.message || 'Network error occurred', 'Connection Error', { progressBar: true });
         }
       );
     }
